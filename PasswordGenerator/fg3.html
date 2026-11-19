@@ -6,14 +6,24 @@
     <title>Document</title>
 </head>
 <body>
-     <div class="result-section">
-      <span class="result-label">Generated Password :</span>
-      <div class="result-box">
-        <span id="result">Click generate to create a password</span>
-        <button id="copyBtn" style="display: none;">Copy</button>
-      </div>
+        <div>
+        <label for="username" class="form-label">User Name</label>
+        <input type="text"  id="username" >
+        <button id="btnCopied" class="btn btn-primary">Copy username</button>
     </div>
-  </div>
+    <script>
+        document.getElementById('btnCopied').addEventListener("click" ,async() =>{
+                
+            //     const resultSpan = document.getElementById("username");
+            // const username = resultSpan.value;
+            const username = document.getElementById('username').value;
+            if(!username) console.log('error');
 
+            console.log(username);
+
+            await navigator.clipboard.writeText(username);
+
+        });
+    </script>
 </body>
 </html>
