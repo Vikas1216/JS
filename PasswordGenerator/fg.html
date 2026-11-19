@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="show">Password Generator</h1>
+        <p>Generates secure random passwords with adjustable length and character sets. Built with arrays, string
+            manipulation and Clipboard API</p>
+    </div>
+    <div>
+        <div>
+            <label for="rangeInput" class="form-label">Password length</label>
+            <input type="range" class="form-range" min="0" max="100" value="50" id="rangeInput">
+            <output for="range4" id="rangeOutput" aria-hidden="true"></output>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="lowercase">
+            <label class="form-check-label" for="checkDefault">
+                Lower case (a-z)
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="uppercase">
+            <label class="form-check-label" for="checkDefault">
+                Upper case (A-Z)
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="numbers">
+            <label class="form-check-label" for="checkDefault">
+                Number (0-9)
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="symbols">
+            <label class="form-check-label" for="checkDefault">
+                Special Symbol (!@#$...)
+            </label>
+        </div>
+
+        <button type="button" class="btn btn-info" id="generateBtn" onclick="generatePassword()">Generate Password</button>
+
+    </div>
+    <h1 id="pwd"><b>Generated Password :</b></h1>
+    <script>
+        // This is an example script, please modify as needed
+        const rangeInput = document.getElementById('rangeInput');
+        const rangeOutput = document.getElementById('rangeOutput');
+        const pwd = document.getElementById('pwd');
+
+
+
+        const generateBtn = document.getElementById('generateBtn');
+
+
+        // Set initial value
+        rangeOutput.textContent = rangeInput.value;
+
+        rangeInput.addEventListener('input', function () {
+            rangeOutput.textContent = this.value;
+        });
+
+        function generatePassword() {
+
+            const charSets = {
+                uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                lowercase: "abcdefghijklmnopqrstuvwxyz",
+                numbers: "0123456789",
+                symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
+            };
+
+            const lowercase = document.getElementById('lowercase').checked;
+            const uppercase = document.getElementById('uppercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+
+            console.log(lowercase+" "+uppercase+" "+numbers+"  "+symbols);
+
+            let text = "";
+            var password="";
+            if (uppercase) text += charSets.uppercase;
+            if (lowercase) text += charSets.lowercase;
+            if (numbers) text += charSets.numbers;
+            if (symbols) text += charSets.symbols;
+
+            console.log(text);
+            if (!text) {
+            text="password";
+         }
+
+            for (let i = 0; i < rangeInput.value; i++) {
+                const randomIndex = Math.floor(Math.random() * text.length);
+                password += text[randomIndex];
+            }
+            pwd.textContent = password;
+
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
